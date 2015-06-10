@@ -24,7 +24,7 @@ module.exports = function(RED) {
                 if(msg.intent == 1) { // open
                     startPlayer(node, msg);
                     if(typeof(msg.sound) == "undefined"  || msg.sound == "")
-        	        msg.sound = msg.value||n.sound;
+			msg.sound = msg.value||n.sound;
                     msg.payload = n.name;
                     node.send([msg, null]);
                 } else if(msg.intent == 0) { // close
@@ -45,7 +45,7 @@ module.exports = function(RED) {
             } else {
                 startPlayer(node, msg);
                 if(typeof(msg.sound) == "undefined"  || msg.sound == "")
-                    msg.sound = msg.value||n.sound;
+		    msg.sound = msg.value||n.sound;
                 msg.payload = n.name;
                 node.send([msg, null]);
             }
