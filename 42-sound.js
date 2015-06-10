@@ -15,18 +15,16 @@ module.exports = function(RED) {
 
     function Sound(n) {
         RED.nodes.createNode(this, n);
-
         this.sound = n.sound;
         this.playing = false;
         createPlayer(this, this.sound);
-
         var node = this;
-
         this.on('input', function(msg) {
             if(msg.intent || msg.intent == 0) {
                 if(msg.intent == 1) { // open
                     startPlayer(node, msg);
-					msg.sound = n.sound||msg.value||msg.sound;
+                    if(typeof(msg.sound) == "undefined"  || msg.sound == "")
+        	        msg.sound = msg.value||n.sound;
                     msg.payload = n.name;
                     node.send([msg, null]);
                 } else if(msg.intent == 0) { // close
@@ -46,7 +44,8 @@ module.exports = function(RED) {
                 node.send([msg,null]);
             } else {
                 startPlayer(node, msg);
-				msg.sound = n.sound||msg.value||msg.sound;
+                if(typeof(msg.sound) == "undefined"  || msg.sound == "")
+                    msg.sound = msg.value||n.sound;
                 msg.payload = n.name;
                 node.send([msg, null]);
             }
